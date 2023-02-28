@@ -1,0 +1,12 @@
+﻿  MK_SSE.cpp
+E:\универ\1 Магистратура\1 семестр\ПППС\лабы Монте-Карло\MK_SSE\MK_SSE\MK_SSE.cpp(1,9): warning C4068: неизвестная прагма "GCC"
+E:\универ\1 Магистратура\1 семестр\ПППС\лабы Монте-Карло\MK_SSE\MK_SSE\MK_SSE.cpp(2,9): warning C4068: неизвестная прагма "GCC"
+E:\универ\1 Магистратура\1 семестр\ПППС\лабы Монте-Карло\MK_SSE\MK_SSE\MK_SSE.cpp(27,12): warning C4244: инициализация: преобразование "clock_t" в "float", возможна потеря данных
+E:\универ\1 Магистратура\1 семестр\ПППС\лабы Монте-Карло\MK_SSE\MK_SSE\MK_SSE.cpp(131,29): warning C4244: return: преобразование "double" в "float", возможна потеря данных
+E:\универ\1 Магистратура\1 семестр\ПППС\лабы Монте-Карло\MK_SSE\MK_SSE\MK_SSE.cpp(166,16): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+  Создание кода
+  1 of 138 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  MK_SSE.vcxproj -> E:\универ\1 Магистратура\1 семестр\ПППС\лабы Монте-Карло\MK_SSE\Release\MK_SSE.exe
