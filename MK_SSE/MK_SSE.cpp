@@ -13,34 +13,34 @@ using namespace std;
 
 vector<vector<float>> FillArr();
 __m128i allRandom(__m128i &seed);
-__m128 RndKoeff(__m128i &seed);
+__m128 RndKoeff(__m128i &seed, int inn, int jnn);
 float g(int a, int b);
-float MK();
+float MK(int inn, int jnn);
 
-int an = 10, bn = 10, inn = 5, jnn = 5;
+int an = 10, bn = 10;
 long int N = 1000000;
 
 vector<vector<float>> ar = FillArr();
 
 int main()
 {
-	float beg = clock();
+	/*float beg = clock();
 	float sol = MK();
 	printf("Solution at point [%d %d] = %f\n", inn, jnn, sol);
 	cout << "time = " << (clock() - beg) / 1000.0 << endl;
 
-	/*inn, jnn = 5, 4;
+	inn, jnn = 5, 4;
 	sol = MK();
-	printf("Solution at point [%d %d] = %f\n",inn, jnn, sol);
+	printf("Solution at point [%d %d] = %f\n",inn, jnn, sol);*/
 
 	for (int i = 1; i < an - 1; i++) {
 		for (int j = 1; j < bn - 1; j++) {
-			inn, jnn = i, j;
-			sol = MK();
+			//inn, jnn = i, j;
+			float sol = MK(i, j);
 			cout << sol << "  ";
 		}
 		cout << endl;
-	}*/
+	}
 
 	return 0;
 }
@@ -58,7 +58,7 @@ __m128i allRandom(__m128i &seed) {
 	return result; 
 }
 
-__m128 RndKoeff(__m128i &seed) {
+__m128 RndKoeff(__m128i &seed, int inn, int jnn) {
 	__m128i a = _mm_set1_epi32(inn);
 	__m128i b = _mm_set1_epi32(jnn);
 
@@ -80,11 +80,11 @@ __m128 RndKoeff(__m128i &seed) {
 	__m128i dy = _mm_set1_epi32(1);
 
 	while (_mm_test_all_zeros(bord, one) != 1) {
-		__m128i rnd = allRandom(seed);
+		__m128i rnd = allRandom(seed); // случайно выбираем смещение
 
 		// смещение по x
-		__m128i xmask1 = _mm_cmpeq_epi32(rnd, zero);
-		__m128i xshift1 = _mm_and_si128(xmask1, dx);
+		__m128i xmask1 = _mm_cmpeq_epi32(rnd, zero); // сравнения на совпадение
+		__m128i xshift1 = _mm_and_si128(xmask1, dx); // установка смещения
 		xshift1 = _mm_and_si128(xshift1, bord); // достигло ли границы
 		a = _mm_subs_epi16(a, xshift1);
 
@@ -146,15 +146,15 @@ vector<vector<float>> FillArr() {
 	return ar;
 }
 
-float MK() {
+float MK(int inn, int jnn) {
 	float ret = 0;
 
-	__m128i seed = _mm_set_epi32(0, 1, 2, 3);
+	__m128i seed = _mm_set_epi32(1, 1, 2, 3);
 	__m128 x = _mm_setzero_ps();
 	__m128 y;
 	for (int i = 0; i + THREADS <= N; i += THREADS)
 	{
-		y = RndKoeff(seed);
+		y = RndKoeff(seed, inn, jnn);
 		x = _mm_add_ps(x, y);
 	}
 	float *rt = (float*)&x;
