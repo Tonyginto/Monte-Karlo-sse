@@ -59,23 +59,29 @@ __m128i allRandom(__m128i &seed) {
 }
 
 __m128 RndKoeff(__m128i &seed, int inn, int jnn) {
+	// начальные точки
 	__m128i a = _mm_set1_epi32(inn);
 	__m128i b = _mm_set1_epi32(jnn);
 
+	// возвращаемое значение
 	__m128 ret = _mm_setzero_ps();
 
+	// для сравнения куда двигаться
 	__m128i zero = _mm_set1_epi32(0);
 	__m128i one = _mm_set1_epi32(1);
 	__m128i two = _mm_set1_epi32(2);
 	__m128i three = _mm_set1_epi32(3);
 
+	// условие достижения границы
 	__m128i bord = _mm_set1_epi32(1);
 
+	// границы сетки
 	__m128i lx = _mm_set1_epi32(0);
 	__m128i rx = _mm_set1_epi32(an-1);
 	__m128i ty = _mm_set1_epi32(0);
 	__m128i by = _mm_set1_epi32(bn-1);
 
+	// смещение на единицу по x и y
 	__m128i dx = _mm_set1_epi32(1);
 	__m128i dy = _mm_set1_epi32(1);
 
@@ -85,7 +91,7 @@ __m128 RndKoeff(__m128i &seed, int inn, int jnn) {
 		// смещение по x
 		__m128i xmask1 = _mm_cmpeq_epi32(rnd, zero); // сравнения на совпадение
 		__m128i xshift1 = _mm_and_si128(xmask1, dx); // установка смещения
-		xshift1 = _mm_and_si128(xshift1, bord); // достигло ли границы
+		xshift1 = _mm_and_si128(xshift1, bord); // достигло ли границы ранее
 		a = _mm_subs_epi16(a, xshift1);
 
 		__m128i xmask2 = _mm_cmpeq_epi32(rnd, one);
